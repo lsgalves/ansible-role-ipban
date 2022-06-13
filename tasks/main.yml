@@ -1,0 +1,17 @@
+---
+- name: gather variables for each operating system
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_os_family | lower }}.yml"
+    - "{{ ansible_system | lower }}.yml"
+  tags:
+    - ipban_install
+    - ipban_configure
+    - ipban_run
+
+- import_tasks: windows.yml
+  when: ansible_os_family == "Windows"
+
+- import_tasks: linux.yml
+  become: true
+  when: ansible_system == "Linux"

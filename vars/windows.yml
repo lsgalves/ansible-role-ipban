@@ -1,0 +1,2 @@
+---
+ipban_app_dir: "{{ ansible_facts['env']['ProgramFiles'] }}\\IPBan"

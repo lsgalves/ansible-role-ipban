@@ -1,0 +1,14 @@
+[Unit]
+Description=IPBan Service
+After=network.target
+
+[Service]
+Type=notify
+WorkingDirectory={{ ipban_app_dir }}
+Environment="DOTNET_BUNDLE_EXTRACT_BASE_DIR=%h/.net/bundling"
+ExecStart={{ ipban_app_dir }}/DigitalRuby.IPBan
+Restart=on-failure
+KillSignal=SIGINT
+
+[Install]
+WantedBy=multi-user.target

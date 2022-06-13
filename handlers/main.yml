@@ -1,0 +1,6 @@
+---
+- name: restart ipban
+  become: true
+  systemd:
+    name: ipban
+    state: restarted

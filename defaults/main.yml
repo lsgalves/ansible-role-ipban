@@ -1,0 +1,83 @@
+---
+ipban_version: 1.7.2
+ipban_append_config: yes
+
+# See https://github.com/DigitalRuby/IPBan/wiki/Configuration
+ipban_log_files_to_parse: []
+# ipban_log_files_to_parse:
+#   - source: SSH
+#     path_and_mask: |
+#       /var/log/auth*.log
+#       /var/log/secure*
+#       /var/log/messages
+#     failed_login_regex: |
+#       <![CDATA[
+#           failed\s+password\s+for\s+(invalid\s+user\s+)?(?<username>[^\s]+)\s+from\s+(?<ipaddress>[^\s]+)\s+port\s+[0-9]+\s+ssh|
+#           did\s+not\s+receive\s+identification\s+string\s+from\s+(?<ipaddress>[^\s]+)|
+#           connection\s+closed\s+by\s+((invalid\s+user\s+)?(?<username>[^\s]+)\s+)?(?<ipaddress>[^\s]+)\s+port\s+[0-9]+\s+\[preauth\]|
+#           disconnected\s+from\s+(invalid\s+user\s+)?(?<username>[^\s]+)\s+(?<ipaddress>[^\s]+)\s+port\s+[0-9]+\s+\[preauth\]|
+#           disconnected\s+from\s+(?<ipaddress>[^\s]+)\s+port\s+[0-9]+\s+\[preauth\]|
+#           disconnected\s+from\s+authenticating\s+user\s+(?<username>[^\s]+)\s+(?<ipaddress>[^\s]+)\s+port\s+[0-9]+\s+\[preauth\]
+#       ]]>
+#     successful_login_regex: |
+#       <![CDATA[
+#         \s+Accepted\s+(?:password|publickey)\s+for\s+(?<username>[^\s]+)\s+from\s+(?<ipaddress>[^\s]+)\s+port\s+[0-9]+\s+ssh
+#       ]]>
+#     failed_login_log_level: Warning
+#     successful_login_log_level: Warning
+#     platform_regex: Linux
+#     ping_interval: 10000
+#     max_file_size: 16777216
+#     failed_login_threshold: 0
+
+ipban_expressions_to_block: []
+# ipban_expressions_to_block:
+#   - source: RDP
+#     keywords: "0x8010000000000000"
+#     path: Security
+#     failed_login_threshold: 0
+#     log_level: Warning
+#     expressions:
+#       xpath: "//EventID"
+#       regex: "^(4625|5152)$"
+
+ipban_expressions_to_notify: []
+# ipban_expressions_to_notify:
+#   - source: RDP
+#     keywords: "0x8010000000000000"
+#     path: Security
+#     failed_login_threshold: 0
+#     log_level: Warning
+#     expressions:
+#       xpath: "//EventID"
+#       regex: "^4624$"
+
+ipban_failed_login_attempts_before_ban: 5
+ipban_ban_time: 01:00:00:00
+ipban_reset_failed_fogin_count_for_unbanned_ip_addresses: no
+ipban_clear_banned_ip_addresses_on_restart: no
+ipban_clear_failed_logins_on_successful_login: no
+ipban_process_internal_ip_addresses: no
+ipban_expire_time: 01:00:00:00
+ipban_cycle_time: 00:00:00:15
+ipban_minimum_time_between_failed_login_attempts: 00:00:00:01
+ipban_minimum_time_between_successful_login_attempts: 00:00:00:05
+ipban_firewall_rule_prefix: IPBan_
+ipban_whitelist: ""
+ipban_whitelist_regex: ""
+ipban_blacklist: ""
+ipban_blacklist_regex: ""
+ipban_user_name_whitelist: ""
+ipban_user_name_whitelist_regex: ""
+ipban_user_name_whitelist_minimum_edit_distance: 2
+ipban_failed_login_attempts_before_ban_user_name_whitelist: 20
+ipban_process_to_run_on_ban: ""
+ipban_process_to_run_on_unban: ""
+ipban_firewall_rules: ""
+ipban_use_default_banned_ip_address_handler: yes
+ipban_external_ip_address_url: https://checkip.amazonaws.com/
+ipban_firewall_uri_rules: ""
+ipban_get_url_update: ""
+ipban_get_url_start: ""
+ipban_get_url_stop: ""
+ipban_get_url_config: ""
