@@ -15,8 +15,8 @@ Role Variables
 
 All variables which can be overridden are stored in [defaults/main.yml](https://github.com/cloudalchemy/ansible-role-ipban/blob/master/defaults/main.yml) file as well as in table below.
 
-| Nome | Valor Padrão | Descrição |
-| ---- | ------------ | --------- |
+| Name | Default Value | Description |
+| ---- | ------------- | ----------- |
 | `ipban_version` | 1.7.2 | IPBan version |
 | `ipban_append_config` | yes | Whether to add or overwrite the default configuration |
 | `ipban_log_files_to_parse` | [] | List of log files to check periodically |
