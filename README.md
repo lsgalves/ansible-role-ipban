@@ -73,4 +73,4 @@ MIT
 Author Information
 ------------------
 
-Leonardo Galves <leonardo.galves@skymail.com.br>
+Leonardo Galves <leonardosgalves@gmail.com>
