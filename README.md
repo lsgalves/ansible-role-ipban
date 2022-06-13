@@ -1,6 +1,8 @@
 Ansible Role: IPBan
 ===================
 
+[![CI](https://github.com/lsgalves/ansible-role-ipban/actions/workflows/ci.yml/badge.svg)](https://github.com/lsgalves/ansible-role-ipban/actions/workflows/ci.yml)
+
 Deploy [IPBan](https://github.com/DigitalRuby/IPBan), a software to block hackers and botnets.
 
 Requirements
