@@ -16,7 +16,7 @@ This role depends on the `ansible.windows.win_service_info` module, so you must 
 Role Variables
 --------------
 
-All variables which can be overridden are stored in [defaults/main.yml](https://github.com/cloudalchemy/ansible-role-ipban/blob/master/defaults/main.yml) file as well as in table below.
+All variables which can be overridden are stored in [defaults/main.yml](https://github.com/lsgalves/ansible-role-ipban/blob/master/defaults/main.yml) file as well as in table below.
 
 | Name | Default Value | Description |
 | ---- | ------------- | ----------- |
