@@ -1,5 +1,5 @@
 ---
-ipban_version: 1.7.2
+ipban_version: latest
 ipban_append_config: yes
 
 # See https://github.com/DigitalRuby/IPBan/wiki/Configuration
