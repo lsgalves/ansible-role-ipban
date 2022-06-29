@@ -20,7 +20,7 @@ All variables which can be overridden are stored in [defaults/main.yml](https://
 
 | Name | Default Value | Description |
 | ---- | ------------- | ----------- |
-| `ipban_version` | 1.7.2 | IPBan version |
+| `ipban_version` | latest | IPBan version |
 | `ipban_append_config` | yes | Whether to add or overwrite the default configuration |
 | `ipban_log_files_to_parse` | [] | List of log files to check periodically |
 | `ipban_expressions_to_block` | [] | Event viewer expression list to check for failed logins on Windows |
