@@ -26,6 +26,7 @@
       register: _latest_release
       until: _latest_release.status == 200
       retries: 5
+      delegate_to: localhost
 
     - name: "Set ipban version to {{ _latest_release.json.tag_name }}"
       set_fact:
