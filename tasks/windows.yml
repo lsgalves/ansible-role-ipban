@@ -97,7 +97,7 @@
     path: "{{ ipban_app_dir }}\\DigitalRuby.IPBan.exe"
     display_name: IPBan
     start_mode: delayed
-    type: win32_own_process
+    service_type: win32_own_process
     state: started
     description: "Automatically builds firewall rules for abusive login attempts: https://github.com/DigitalRuby/IPBan"
     failure_actions:
