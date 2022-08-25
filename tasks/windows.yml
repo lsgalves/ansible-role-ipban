@@ -1,29 +1,29 @@
 ---
-- name: check if it is installed
+- name: Check if it is installed
   ansible.windows.win_service_info:
     name: IPBan
   register: ipban_service
 
-- name: uninstall if installed
+- name: Uninstall if installed
   when: ipban_service.exists
   block:
-    - name: stop service
+    - name: Stop service
       win_service:
         name: IPBan
         state: stopped
     
-    - name: remove service
+    - name: Remove service
       win_service:
         name: IPBan
         state: absent
 
-    - name: create temp directory to current state
+    - name: Create temp directory to current state
       win_tempfile:
         suffix: ipban
         state: directory
       register: ipban_temp_dir
 
-    - name: copy config and db files to temp directory
+    - name: Copy config and db files to temp directory
       win_copy:
         src: "{{ ipban_app_dir }}\\{{ item }}"
         dest: "{{ ipban_temp_dir.path }}\\{{ item }}"
@@ -34,24 +34,24 @@
         - ipban.sqlite
         - nlog.config
 
-    - name: delete app folder
+    - name: Delete app folder
       win_file:
         path: "{{ ipban_app_dir }}"
         state: absent
 
-- name: ensure exists app dir
+- name: Ensure exists app dir
   win_file:
     path: "{{ ipban_app_dir }}\\"
     state: directory
 
-- name: "download ipban {{ ipban_version }}"
+- name: "Download ipban {{ ipban_version }}"
   win_get_url:
     url: "https://github.com/DigitalRuby/IPBan/releases/download/{{ ipban_version }}/IPBan-Windows-x64_{{ ipban_version | replace('.', '_') }}.zip"
     dest: "{{ ipban_app_dir }}\\"
   tags:
     - ipban_install
 
-- name: extract and cleanup
+- name: Extract and cleanup
   win_unzip:
     src: "{{ ipban_app_dir }}\\IPBan-Windows-x64_{{ ipban_version | replace('.', '_') }}.zip"
     dest: "{{ ipban_app_dir }}"
@@ -60,7 +60,7 @@
   tags:
     - ipban_install
   
-- name: copy back over the config and db files
+- name: Copy back over the config and db files
   win_copy:
     src: "{{ ipban_temp_dir.path }}\\{{ item }}"
     dest: "{{ ipban_app_dir }}\\{{ item }}"
@@ -74,7 +74,7 @@
     - ipban.sqlite
     - nlog.config
 
-- name: ensure temp dir is not exists
+- name: Ensure temp dir is not exists
   win_file:
     path: "{{ ipban_temp_dir.path }}"
     state: absent
@@ -82,7 +82,7 @@
   tags:
     - ipban_install
 
-- name: ensure audit policy is logging
+- name: Ensure audit policy is logging
   win_command: "auditpol.exe /set /category:\"{{ item }}\" /success:enable /failure:enable"
   loop:
     - "{69979849-797A-11D9-BED3-505054503030}"
@@ -91,7 +91,7 @@
     - ipban_install
     - ipban_configure
 
-- name: create service
+- name: Create service
   win_service:
     name: IPBan
     path: "{{ ipban_app_dir }}\\DigitalRuby.IPBan.exe"
@@ -113,7 +113,7 @@
     - ipban_configure
     - ipban_run
 
-- name: config ipban
+- name: Config ipban
   win_template:
     src: ipban.config.j2
     dest: "{{ ipban_app_dir }}\\ipban.config"

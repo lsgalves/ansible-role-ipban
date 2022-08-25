@@ -1,5 +1,5 @@
 ---
-- name: restart ipban
+- name: Restart ipban
   become: true
   systemd:
     name: ipban

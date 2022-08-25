@@ -1,5 +1,5 @@
 ---
-- name: install dependencies
+- name: Install dependencies
   package:
     name: "{{ item }}"
     state: present
@@ -10,26 +10,26 @@
   tags:
     - ipban_install
 
-- name: check if it is installed
+- name: Check if it is installed
   stat:
     path: "{{ ipban_app_dir }}/DigitalRuby.IPBan"
   register: ipban_program
 
-- name: uninstall if installed
+- name: Uninstall if installed
   when: ipban_program.stat.exists
   block:
-    - name: stop service
+    - name: Stop service
       service:
         name: ipban
         state: stopped
 
-    - name: create temp directory to current state
+    - name: Create temp directory to current state
       tempfile:
         suffix: ipban
         state: directory
       register: ipban_temp_dir
 
-    - name: copy config and db files to temp directory
+    - name: Copy config and db files to temp directory
       copy:
         src: "{{ ipban_app_dir }}/{{ item }}"
         dest: "{{ ipban_temp_dir.path }}/{{ item }}"
@@ -40,14 +40,14 @@
         - ipban.sqlite
         - nlog.config
 
-- name: ensure exists application directory
+- name: Ensure exists application directory
   file:
     path: "{{ ipban_app_dir }}"
     state: directory
   tags:
     - ipban_install
 
-- name: download and extract ipban
+- name: Download and extract ipban
   unarchive:
     src: "https://github.com/DigitalRuby/IPBan/releases/download/{{ ipban_version }}/IPBan-Linux-x64_{{ ipban_version | replace('.', '_') }}.zip"
     dest: "{{ ipban_app_dir }}"
@@ -55,7 +55,7 @@
   tags:
     - ipban_install
 
-- name: allow execute permissions for ipban
+- name: Allow execute permissions for ipban
   file:
     path: "{{ ipban_app_dir }}/DigitalRuby.IPBan"
     state: file
@@ -64,7 +64,7 @@
     - ipban_install
     - ipban_configure
 
-- name: copy back over the config and db files
+- name: Copy back over the config and db files
   copy:
     src: "{{ ipban_temp_dir.path }}/{{ item }}"
     dest: "{{ ipban_app_dir }}/{{ item }}"
@@ -78,7 +78,7 @@
     - ipban.sqlite
     - nlog.config
 
-- name: ensure temp dir is not exists
+- name: Ensure temp dir is not exists
   file:
     path: "{{ ipban_temp_dir.path }}"
     state: absent
@@ -86,7 +86,7 @@
   tags:
     - ipban_install
 
-- name: create systemd service unit
+- name: Create systemd service unit
   template:
     src: ipban.service.j2
     dest: /lib/systemd/system/ipban.service
@@ -94,12 +94,12 @@
     group: root
     mode: 0644
   notify:
-    - restart ipban
+    - Restart ipban
   tags:
     - ipban_install
     - ipban_configure
 
-- name: ensure ipban service is started and enabled
+- name: Ensure ipban service is started and enabled
   systemd:
     name: ipban
     state: started
@@ -110,11 +110,11 @@
     - ipban_configure
     - ipban_run
 
-- name: config ipban
+- name: Config ipban
   template:
     src: ipban.config.j2
     dest: "{{ ipban_app_dir }}/ipban.config"
   notify:
-    - restart ipban
+    - Restart ipban
   tags:
     - ipban_config
